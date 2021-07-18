@@ -12,4 +12,6 @@ public interface AuthorDao {
 
     Author getById(long id);
 
+    Author getOrCreateByName(String name);
+
 }

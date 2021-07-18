@@ -3,17 +3,17 @@ package com.christinagorina.moddbhomework.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
 public class Book {
 
     public Long id;
 
     public String name;
 
-    public long authorId;
+    public Author author;
 
-    public long genreId;
+    public Genre genre;
 
     public boolean isNew() {
         return this.id == null;

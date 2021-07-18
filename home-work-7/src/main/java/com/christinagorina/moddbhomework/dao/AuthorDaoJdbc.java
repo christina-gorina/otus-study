@@ -14,14 +14,14 @@ import java.util.Collections;
 import java.util.Map;
 
 @Repository
-public class AuthorDaoJdbc implements AuthorDao{
+public class AuthorDaoJdbc implements AuthorDao {
 
     private final NamedParameterJdbcOperations namedParameterJdbcOperations;
     private final SimpleJdbcInsert insertAuthor;
     private final JdbcTemplate jdbcTemplate;
 
     public AuthorDaoJdbc(NamedParameterJdbcOperations namedParameterJdbcOperations,
-                       JdbcTemplate jdbcTemplate) {
+                         JdbcTemplate jdbcTemplate) {
 
         this.namedParameterJdbcOperations = namedParameterJdbcOperations;
         this.jdbcTemplate = jdbcTemplate;
@@ -39,7 +39,7 @@ public class AuthorDaoJdbc implements AuthorDao{
         if (author.isNew()) {
             Number authorKey = insertAuthor.executeAndReturnKey(authorMap);
             author.setId(authorKey.longValue());
-        }else if (namedParameterJdbcOperations.update(
+        } else if (namedParameterJdbcOperations.update(
                 "update author SET name=:name WHERE id=:id", authorMap) == 0) {
             return null;
         }
@@ -58,8 +58,20 @@ public class AuthorDaoJdbc implements AuthorDao{
     public Author getById(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
         return namedParameterJdbcOperations.queryForObject(
-                "select * from author where id = :id", params, new AuthorDaoJdbc.AuthorMapper()
+                "select id, name from author where id = :id", params, new AuthorDaoJdbc.AuthorMapper()
         );
+    }
+
+    @Override
+    public Author getOrCreateByName(String name) {
+        Map<String, Object> params = Collections.singletonMap("name", name);
+        return namedParameterJdbcOperations.query(
+                "select id, name from author where name = :name", params, rs -> {
+            if (!rs.next())
+                return save(new Author(null, name));
+
+            return new Author(rs.getLong("id"), rs.getString("name"));
+        });
     }
 
     private static class AuthorMapper implements RowMapper<Author> {

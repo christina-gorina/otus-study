@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 
+import static com.christinagorina.moddbhomework.TestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Тест для GenreDaoJdbc")
@@ -17,10 +18,6 @@ public class GenreDaoJdbcTests {
 
     @Autowired
     private GenreDaoJdbc genreDaoJdbc;
-
-    private static final String GENRE_1_NAME = "Mystic";
-    private static final String UPDATED_GENRE_NAME = "Anime";
-    private static final String CREATED_GENRE_NAME = "Drama";
 
     @Test
     void updateGenre() {

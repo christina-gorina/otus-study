@@ -2,8 +2,6 @@ package com.christinagorina.moddbhomework.dao;
 
 import com.christinagorina.moddbhomework.domain.Genre;
 
-import java.util.List;
-
 public interface GenreDao {
 
     Genre save(Genre genre);
@@ -11,5 +9,7 @@ public interface GenreDao {
     boolean delete(long id);
 
     Genre getById(long id);
+
+    Genre getOrCreateByName(String name);
 
 }

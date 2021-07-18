@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 
+import static com.christinagorina.moddbhomework.TestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Тест для AuthorDaoJdbc")
@@ -16,10 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AuthorDaoJdbcTests {
     @Autowired
     private AuthorDaoJdbc authorDaoJdbc;
-
-    private static final String AUTHOR_1_NAME = "Orlov G. O.";
-    private static final String UPDATED_AUTHOR_NAME = "Updated author name";
-    private static final String CREATED_AUTHOR_NAME = "Petrov A. G.";
 
     @Test
     void updateAuthor() {
