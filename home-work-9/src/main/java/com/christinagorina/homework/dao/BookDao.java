@@ -8,7 +8,7 @@ public interface BookDao {
 
     Book save(Book book);
 
-    boolean delete(long id);
+    void delete(long id);
 
     Book getById(long id);
 

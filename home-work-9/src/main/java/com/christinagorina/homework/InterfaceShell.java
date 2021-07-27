@@ -1,6 +1,6 @@
 package com.christinagorina.homework;
 
-import com.christinagorina.homework.service.BookService;
+import com.christinagorina.homework.service.BookServiceImpl;
 import com.christinagorina.homework.to.BookTo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
@@ -13,7 +13,7 @@ import java.util.List;
 @ShellComponent
 @RequiredArgsConstructor
 public class InterfaceShell {
-    private final BookService bookService;
+    private final BookServiceImpl bookServiceImpl;
 
     @ShellMethod(key = "update_book", value = "Update Book")
     public BookTo update(@ShellOption({"bookName", "n"}) String bookName,
@@ -22,7 +22,7 @@ public class InterfaceShell {
                          @ShellOption({"comment", "a"}) String comment) {
         List<String> comments = Collections.singletonList(comment);
         BookTo updatedBook = new BookTo(1L, bookName, author, genre, comments);
-        return bookService.update(updatedBook);
+        return bookServiceImpl.update(updatedBook);
     }
 
     @ShellMethod(key = "create_book", value = "Create Book")
@@ -31,22 +31,22 @@ public class InterfaceShell {
                          @ShellOption({"genre", "g"}) String genre,
                          @ShellOption({"comment", "a"}) List<String> comment) {
         BookTo createdBookTo = new BookTo(null, bookName, author, genre, comment);
-        return bookService.create(createdBookTo);
+        return bookServiceImpl.create(createdBookTo);
     }
 
     @ShellMethod(key = "getById_book", value = "GetById Book")
     public BookTo getById(@ShellOption({"id", "a"}) Long id){
-        return bookService.getById(id);
+        return bookServiceImpl.getById(id);
     }
 
     @ShellMethod(key = "delete_book", value = "Deleted Book")
-    public boolean delete(){
-        return bookService.delete(3L);
+    public void delete(){
+        bookServiceImpl.delete(3L);
     }
 
     @ShellMethod(key = "getAll_book", value = "GetAll Book")
     public List<BookTo> getAll(){
-        return bookService.getAll();
+        return bookServiceImpl.getAll();
     }
 
 }

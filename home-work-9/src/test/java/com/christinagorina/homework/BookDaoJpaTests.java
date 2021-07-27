@@ -55,7 +55,6 @@ class BookDaoJpaTests {
 
         val book = em.find(Book.class, 2L);
         assertThat(book).isNotNull();
-        em.detach(book);
         bookDaoJpa.delete(2L);
         val deletedBook = em.find(Book.class, 2L);
         assertThat(deletedBook).isNull();

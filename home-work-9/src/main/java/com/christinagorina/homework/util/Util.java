@@ -20,4 +20,9 @@ public class Util {
         List<String> comments = book.getComment().stream().map(Comment::getText).collect(Collectors.toList());
         return new BookTo(book.getId(), book.getName(), authorNames, book.getGenre().getName(), comments);
     }
+
+    public static BookTo createToWithoutComments(Book book) {
+        List<String> authorNames = book.getAuthor().stream().map(Author::getName).collect(Collectors.toList());
+        return new BookTo(book.getId(), book.getName(), authorNames, book.getGenre().getName(), null);
+    }
 }

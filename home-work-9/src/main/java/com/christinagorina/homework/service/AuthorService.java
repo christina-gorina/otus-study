@@ -1,17 +1,10 @@
 package com.christinagorina.homework.service;
 
-import com.christinagorina.homework.dao.AuthorDao;
 import com.christinagorina.homework.domain.Author;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class AuthorService {
+public interface AuthorService {
 
-    private final AuthorDao authorDao;
+    Author getOrCreateByName(String name);
 
-    public Author getOrCreateByName(String name) {
-        return authorDao.getOrCreateByName(name);
-    }
+
 }

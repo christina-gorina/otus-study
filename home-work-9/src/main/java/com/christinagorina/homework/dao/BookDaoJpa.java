@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Repository
 public class BookDaoJpa implements BookDao {
@@ -29,24 +30,17 @@ public class BookDaoJpa implements BookDao {
 
     @Override
     public Book getById(long id) {
-        EntityGraph<?> entityGraph = em.getEntityGraph("book-comment-entity-graph");
-        TypedQuery<Book> query = em.createQuery("select b from Book b join fetch b.genre where b.id = :id", Book.class);
-        query.setParameter("id", id);
-        query.setHint("javax.persistence.fetchgraph", entityGraph);
-        return query.getResultList().stream().findFirst().orElse(null);
+        return Optional.ofNullable(em.find(Book.class, id)).orElse(null);
     }
 
     @Override
-    public boolean delete(long id) {
-        Query query = em.createQuery("delete from Book b where b.id = :id");
-        return query.setParameter("id", id).executeUpdate() != 0;
+    public void delete(long id) {
+        Book book = em.find(Book.class, id);
+        em.remove(book);
     }
 
     @Override
     public List<Book> getAll() {
-        EntityGraph<?> entityGraph = em.getEntityGraph("book-comment-entity-graph");
-        TypedQuery<Book> query = em.createQuery("select b from Book b join fetch b.genre", Book.class);
-        query.setHint("javax.persistence.fetchgraph", entityGraph);
-        return query.getResultList();
+        return em.createQuery("select b from Book b join fetch b.genre", Book.class).getResultList();
     }
 }
