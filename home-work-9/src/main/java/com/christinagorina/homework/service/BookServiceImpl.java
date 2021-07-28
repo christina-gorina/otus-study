@@ -65,6 +65,11 @@ public class BookServiceImpl implements BookService{
         return books.stream().map(Util::createToWithoutComments).collect(Collectors.toList());
     }
 
+    public List<String> getCommentsByBook(long id){
+        Book book = bookDao.getById(id);
+        return book.getComment().stream().map(Comment::getText).collect(Collectors.toList());
+    }
+
     private Book getBook(BookTo savedBookTo) {
         String genreName = savedBookTo.getGenre();
         List<Author> authors = savedBookTo.getAuthorNames().stream()

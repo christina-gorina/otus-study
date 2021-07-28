@@ -75,4 +75,15 @@ public class BookServiceImplTests {
                 .matches(s -> s.get(2).getId() == 3L)
                 .matches(s -> s.get(2).getName().equals(BOOK_3_NAME));
     }
+
+    @Test
+    void commentsByBook() {
+        List<String> comments = bookServiceImpl.getCommentsByBook(1);
+        assertThat(comments).isNotNull()
+                .matches(s -> s.get(0).equals(COMMENT1))
+                .matches(s -> s.get(1).equals(COMMENT2))
+                .matches(s -> s.get(2).equals(COMMENT3))
+                .matches(s -> s.get(3).equals(COMMENT4))
+                .matches(s -> s.get(4).equals(COMMENT5));
+    }
 }
