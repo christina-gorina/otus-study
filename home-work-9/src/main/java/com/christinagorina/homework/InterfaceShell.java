@@ -49,4 +49,9 @@ public class InterfaceShell {
         return bookServiceImpl.getAll();
     }
 
+    @ShellMethod(key = "getCommentsByBook", value = "Get Comments By Book")
+    public List<String> getCommentsByBook(@ShellOption({"id", "a"}) Long id){
+        return bookServiceImpl.getCommentsByBook(id);
+    }
+
 }
