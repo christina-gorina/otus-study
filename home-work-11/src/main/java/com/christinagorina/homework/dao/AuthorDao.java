@@ -1,15 +1,10 @@
 package com.christinagorina.homework.dao;
 
 import com.christinagorina.homework.domain.Author;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AuthorDao {
+public interface AuthorDao extends JpaRepository<Author, Long> {
 
-    Author save(Author author);
-
-    boolean delete(long id);
-
-    Author getById(long id);
-
-    Author getOrCreateByName(String name);
+    Author findByName(String name);
 
 }

@@ -1,15 +1,10 @@
 package com.christinagorina.homework.dao;
 
 import com.christinagorina.homework.domain.Genre;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface GenreDao {
+public interface GenreDao extends JpaRepository<Genre, Long> {
 
-    Genre save(Genre genre);
-
-    boolean delete(long id);
-
-    Genre getById(long id);
-
-    Genre getOrCreateByName(String name);
+    Genre findByName(String name);
 
 }

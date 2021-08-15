@@ -12,7 +12,7 @@ public interface BookService {
 
     BookTo getById(long id);
 
-    boolean delete(long id);
+    void delete(long id);
 
     List<BookTo> getAll();
 }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.shell.jline.InteractiveShellApplicationRunner;
 import org.springframework.shell.jline.ScriptShellApplicationRunner;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
@@ -50,8 +49,11 @@ public class BookServiceImplTests {
 
     @Test
     void deleteBook() {
-        boolean isDeleted = bookServiceImpl.delete(2);
-        assertThat(isDeleted).isTrue();
+        BookTo bookTo = bookServiceImpl.getById(2L);
+        assertThat(bookTo).isNotNull();
+        bookServiceImpl.delete(2L);
+        BookTo bookToDeleted = bookServiceImpl.getById(2L);
+        assertThat(bookToDeleted).isNull();
     }
 
     @Test
