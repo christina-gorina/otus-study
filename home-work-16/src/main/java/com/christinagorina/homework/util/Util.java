@@ -6,8 +6,7 @@ import com.christinagorina.homework.domain.Comment;
 import com.christinagorina.homework.domain.Genre;
 import com.christinagorina.homework.to.BookTo;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -18,22 +17,24 @@ public class Util {
 
     public static BookTo createTo(Book book) {
         if(Objects.nonNull(book)){
-            List<String> authorNames = book.getAuthor().stream().map(Author::getName).collect(Collectors.toList());
-            List<String> comments = book.getComment().stream().map(Comment::getText).collect(Collectors.toList());
-            return new BookTo(book.getId(), book.getName(), authorNames, book.getGenre().getName(), comments);
+            List<String> authorNames = book.getAuthor().stream().map(Author::getName).sorted().collect(Collectors.toList());
+            return new BookTo(book.getId(), book.getName(), authorNames, book.getGenre().getName());
         }else{
             return new BookTo();
         }
-
     }
 
-    public static BookTo createToWithoutComments(Book book) {
-        if(Objects.nonNull(book)){
-            List<String> authorNames = book.getAuthor().stream().map(Author::getName).collect(Collectors.toList());
-            return new BookTo(book.getId(), book.getName(), authorNames, book.getGenre().getName(), null);
+    public static BookTo removeEmptyAuthor(BookTo createdBookTo) {
+        if(Objects.nonNull(createdBookTo)){
+            List<String> authorNamesList = Optional.of(createdBookTo).map(BookTo::getAuthorNames).
+                    orElse(Collections.emptyList()).stream().filter(n->!n.isEmpty()).
+                    collect(Collectors.toList());
+
+            createdBookTo.setAuthorNames(authorNamesList);
+            return createdBookTo;
         }else{
             return new BookTo();
         }
-
     }
+
 }

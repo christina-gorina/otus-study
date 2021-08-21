@@ -6,8 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.shell.jline.InteractiveShellApplicationRunner;
-import org.springframework.shell.jline.ScriptShellApplicationRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
@@ -18,10 +16,7 @@ import static com.christinagorina.homework.TestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Тест для BookServiceTest")
-@SpringBootTest(properties = {
-        InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false",
-        ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false"
-})
+@SpringBootTest
 @Transactional
 public class BookServiceImplTests {
 
@@ -41,7 +36,7 @@ public class BookServiceImplTests {
 
     @Test
     void createBook() {
-        BookTo actualBookTo = new BookTo(null, NEW_BOOK_NAME, Collections.singletonList(NEW_AUTHOR_NAME), NEW_GENRE_NAME, Collections.singletonList(NEW_COMMENT));
+        BookTo actualBookTo = new BookTo(null, NEW_BOOK_NAME, Collections.singletonList(NEW_AUTHOR_NAME), NEW_GENRE_NAME);
         actualBookTo = bookServiceImpl.create(actualBookTo);
         BookTo expectedBookTo = bookServiceImpl.getById(actualBookTo.getId());
         assertThat(actualBookTo).usingRecursiveComparison().isEqualTo(expectedBookTo);
@@ -59,7 +54,7 @@ public class BookServiceImplTests {
     @Test
     void getByIdBook() {
         BookTo actualBookTo = bookServiceImpl.getById(1);
-        BookTo expectedBookTo = new BookTo(1L, BOOK_1_NAME, Collections.singletonList(AUTHOR_1_NAME), GENRE_1_NAME, Arrays.asList(COMMENT1, COMMENT2, COMMENT3, COMMENT4, COMMENT5));
+        BookTo expectedBookTo = new BookTo(1L, BOOK_1_NAME, Collections.singletonList(AUTHOR_1_NAME), GENRE_1_NAME);
         assertThat(actualBookTo).usingRecursiveComparison().isEqualTo(expectedBookTo);
     }
 

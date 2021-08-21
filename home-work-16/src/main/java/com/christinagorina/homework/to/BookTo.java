@@ -19,7 +19,4 @@ public class BookTo {
 
     public String genre;
 
-    public List<String> comments;
-
-
 }

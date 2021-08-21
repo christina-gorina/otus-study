@@ -22,27 +22,19 @@ public class BookServiceImpl implements BookService{
     private final BookDao bookDao;
     private final AuthorServiceImpl authorServiceImpl;
     private final GenreServiceImpl genreServiceImpl;
-    private final CommentServiceImpl commentServiceImpl;
 
     @Transactional
     public BookTo update(BookTo updatedBookTo) {
+        updatedBookTo = Util.removeEmptyAuthor(updatedBookTo);
         Book book = bookDao.save(getBook(updatedBookTo));
-        List<Comment> comments = saveComment(updatedBookTo.getComments(), book);
-        book.setComment(comments);
         return Util.createTo(book);
     }
 
     @Transactional
     public BookTo create(BookTo createdBookTo) {
+        createdBookTo = Util.removeEmptyAuthor(createdBookTo);
         Book book = bookDao.save(getBook(createdBookTo));
-        List<Comment> comments = saveComment(createdBookTo.getComments(), book);
-        book.setComment(comments);
         return Util.createTo(book);
-    }
-
-    public List<Comment> saveComment(List<String> comments, Book book) {
-        return comments.stream()
-                .map(text -> commentServiceImpl.createByText(text, book)).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -61,7 +53,7 @@ public class BookServiceImpl implements BookService{
     @Transactional(readOnly = true)
     public List<BookTo> getAll() {
         List<Book> books = bookDao.findAll();
-        return books.stream().map(Util::createToWithoutComments).collect(Collectors.toList());
+        return books.stream().map(Util::createTo).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
