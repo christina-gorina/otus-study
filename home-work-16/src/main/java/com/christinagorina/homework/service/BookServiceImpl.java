@@ -23,21 +23,21 @@ public class BookServiceImpl implements BookService{
     private final AuthorServiceImpl authorServiceImpl;
     private final GenreServiceImpl genreServiceImpl;
 
-    @Transactional
+    @Override
     public BookTo update(BookTo updatedBookTo) {
         updatedBookTo = Util.removeEmptyAuthor(updatedBookTo);
         Book book = bookDao.save(getBook(updatedBookTo));
         return Util.createTo(book);
     }
 
-    @Transactional
+    @Override
     public BookTo create(BookTo createdBookTo) {
         createdBookTo = Util.removeEmptyAuthor(createdBookTo);
         Book book = bookDao.save(getBook(createdBookTo));
         return Util.createTo(book);
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public BookTo getById(long id) {
         Optional<Book> bookOptional = bookDao.findById(id);
 
@@ -45,18 +45,17 @@ public class BookServiceImpl implements BookService{
 
     }
 
-    @Transactional
+    @Override
     public void delete(long id) {
         bookDao.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
+    @Override
     public List<BookTo> getAll() {
         List<Book> books = bookDao.findAll();
         return books.stream().map(Util::createTo).collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     public List<String> getCommentsByBook(long id){
         Book book = bookDao.getById(id);
         return book.getComment().stream().map(Comment::getText).collect(Collectors.toList());

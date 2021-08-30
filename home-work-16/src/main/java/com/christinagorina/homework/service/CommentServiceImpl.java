@@ -12,6 +12,7 @@ public class CommentServiceImpl implements CommentService{
 
     private final CommentDao commentDao;
 
+    @Override
     public Comment createByText(String text, Book book) {
         return commentDao.save(new Comment(null, text, book));
     }

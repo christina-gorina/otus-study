@@ -13,6 +13,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorDao authorDao;
 
+    @Override
     public Author getOrCreateByName(String name) {
         Author author = authorDao.findByName(name);
 

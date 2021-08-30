@@ -1,6 +1,8 @@
 package com.christinagorina.homework.controller;
 
+import com.christinagorina.homework.domain.Genre;
 import com.christinagorina.homework.service.BookService;
+import com.christinagorina.homework.service.GenreService;
 import com.christinagorina.homework.to.BookTo;
 import com.christinagorina.homework.util.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,8 @@ public class BookController {
 
     private final BookService bookService;
 
+    private final GenreService genreService;
+
     @GetMapping("/")
     public String listPage(Model model) {
         List<BookTo> books = bookService.getAll();
@@ -27,11 +31,13 @@ public class BookController {
     @GetMapping("/edit")
     public String edit(@RequestParam("id") int id, Model model) {
         BookTo book = bookService.getById(id);
+        List<Genre> genres = genreService.findAll();
 
         if (Objects.isNull(book)) {
             throw new NotFoundException("Book not found");
         }
         model.addAttribute("book", book);
+        model.addAttribute("genres", genres);
         return "editbook";
     }
 

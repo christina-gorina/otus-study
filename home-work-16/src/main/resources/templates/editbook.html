@@ -45,7 +45,13 @@
 
     <div class="row">
         <label for="genre-input">Genre:</label>
-        <input id="genre-input" name="genre" type="text" th:value="${book.genre}" value="Book`s genre"/>
+        <select name="genre">
+            <option th:each="genre : ${genres}"
+                    th:value="${genre.name}"
+                    th:text="${genre.name}"
+                    th:selected="${genre.name} == ${book.genre}">
+            </option>
+        </select>
     </div>
     <div class="row">
         <label>Authors:</label>
