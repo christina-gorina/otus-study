@@ -1,0 +1,24 @@
+spring:
+  data:
+    mongodb:
+      port: 0
+      database: company
+mongock:
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - com.christinagorina.homework.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+
+    show-sql: true
+
+logging:
+  level:
+    ROOT: ERROR
