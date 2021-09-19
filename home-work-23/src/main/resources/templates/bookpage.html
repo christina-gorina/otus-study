@@ -15,15 +15,17 @@
     </style>
 </head>
 <body>
-<h1>Books:</h1>
+<h1>Книги:</h1>
+
+<p><a href="/">На главную</a></p>
 
 <table class="books">
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Author</th>
-        <th>Genre</th>
+        <th>Название</th>
+        <th>Авторы</th>
+        <th>Жанр</th>
         <th></th>
         <th></th>
     </tr>
@@ -35,15 +37,15 @@
         <td th:text="${book.authorNames}">bookauthor</td>
         <td th:text="${book.genre}">bookgenre</td>
         <td>
-            <a th:href="@{/edit(id=${book.id})}" href="editbook.html">Edit</a>
+            <a th:href="@{/edit(id=${book.id})}" href="editbook.html">Изменить</a>
         </td>
         <td>
-            <a th:href="@{/delete(id=${book.id})}">Delete</a>
+            <a th:href="@{/delete(id=${book.id})}">Удалить</a>
         </td>
     </tr>
     </tbody>
 </table>
-<a th:href="@{/create}" href="editbook.html">Create</a>
+<a th:href="@{/create}" href="editbook.html">Создать</a>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS book;
 DROP TABLE IF EXISTS author;
 DROP TABLE IF EXISTS genre;
+DROP TABLE IF EXISTS user;
 
 CREATE TABLE author
 (
@@ -35,4 +36,12 @@ CREATE TABLE comment
     text    VARCHAR(255),
     book_id BIGINT   NOT NULL,
     FOREIGN KEY (book_id) REFERENCES book (id) ON DELETE CASCADE
+);
+
+CREATE TABLE users
+(
+    id               IDENTITY NOT NULL PRIMARY KEY,
+    name             VARCHAR                           NOT NULL,
+    password         VARCHAR                           NOT NULL,
+    email            VARCHAR
 );

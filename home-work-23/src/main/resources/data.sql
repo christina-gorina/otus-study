@@ -31,3 +31,4 @@ insert into comment (id, `book_id`, `text`) values (12, 3, 'Comment 12 for book 
 insert into comment (id, `book_id`, `text`) values (13, 3, 'Comment 13 for book 3');
 insert into comment (id, `book_id`, `text`) values (14, 3, 'Comment 14 for book 3');
 insert into comment (id, `book_id`, `text`) values (15, 3, 'Comment 15 for book 3');
+insert into users (id, `name`, `password`, `email`) values (1, 'admin', 'password', 'email@gmail.com');

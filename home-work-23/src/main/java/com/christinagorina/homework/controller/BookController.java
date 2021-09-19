@@ -22,6 +22,16 @@ public class BookController {
     private final GenreService genreService;
 
     @GetMapping("/")
+    public String indexPage() {
+        return "index";
+    }
+
+    @GetMapping("/about")
+    public String publicPage() {
+        return "about";
+    }
+
+    @GetMapping("/bookpage")
     public String listPage(Model model) {
         List<BookTo> books = bookService.getAll();
         model.addAttribute("books", books);
@@ -64,7 +74,18 @@ public class BookController {
     @GetMapping(value = "/delete")
     public String delete(@RequestParam("id") int id) {
         bookService.delete(id);
-        return "redirect:/";
+        return "redirect:/bookpage";
+    }
+
+    @PostMapping("/success")
+    public String successPage() {
+        return "success";
+    }
+
+
+    @GetMapping("/error")
+    public String errorPage() {
+        return "error";
     }
 
 }

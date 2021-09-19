@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Edit book</title>
+    <title>Изменить книгу</title>
     <style type="text/css">
         body {
             padding: 50px;
@@ -35,16 +35,16 @@
 
 
 <form id="edit-form" th:action="@{/edit(id=${book.id})}" th:method="post" action="editbook.html">
-    <a href="/">Home</a>
-    <h1>Book Info:</h1>
+    <a href="/bookpage">К списку книг</a>
+    <h1>Список книг</h1>
 
     <div class="row">
-        <label for="holder-input">Name:</label>
+        <label for="holder-input">Название:</label>
         <input id="holder-input" name="name" type="text" th:value="${book.name}" value="Good book"/>
     </div>
 
     <div class="row">
-        <label for="genre-input">Genre:</label>
+        <label>Жанр:</label>
         <select name="genre">
             <option th:each="genre : ${genres}"
                     th:value="${genre.name}"
@@ -54,7 +54,7 @@
         </select>
     </div>
     <div class="row">
-        <label>Authors:</label>
+        <label>Авторы:</label>
         <ul id="authorList" th:if="${book.authorNames}">
             <li th:each="name : ${book.authorNames}">
                 <input name="authorNames" type="text" th:value="${name}" value="Name of author"/>
@@ -65,12 +65,12 @@
                 <input name="authorNames" type="text" value=""/>
             </li>
         </ul>
-        <span class="addAuthor" onclick="addAuthor();">Add author</span>
+        <span class="addAuthor" onclick="addAuthor();">Добавить автора</span>
 
     </div>
 
     <div class="row">
-        <button type="submit">Save</button>
+        <button type="submit">Сохранить</button>
     </div>
 </form>
 
