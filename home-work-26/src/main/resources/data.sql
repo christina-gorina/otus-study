@@ -1,0 +1,20 @@
+insert into author (id, `name`) values (1, 'Orlov G. O.');
+insert into author (id, `name`) values (2, 'Somov E. V.');
+insert into author (id, `name`) values (3, 'Levin O. F.');
+insert into author (id, `name`) values (4, 'Gromov N. V.');
+insert into author (id, `name`) values (5, 'Umov D. M.');
+insert into author (id, `name`) values (6, 'Radov K. N.');
+insert into author (id, `name`) values (7, 'Onov K. N.');
+insert into genre (id, `name`) values (1, 'Mystic');
+insert into genre (id, `name`) values (2, 'Fantastic');
+insert into genre (id, `name`) values (3, 'Horror');
+insert into book (id, `name`, `genre_id`) values (1, 'Love story', 1);
+insert into book (id, `name`, `genre_id`) values (2, 'Call of the night', 2);
+insert into book (id, `name`, `genre_id`) values (3, 'Close your eyes', 3);
+insert into book_authors (`book_id`, `author_id`) values (1, 1);
+insert into book_authors (`book_id`, `author_id`) values (2, 2);
+insert into book_authors (`book_id`, `author_id`) values (3, 3);
+insert into book_authors (`book_id`, `author_id`) values (1, 4);
+insert into book_authors (`book_id`, `author_id`) values (2, 5);
+insert into book_authors (`book_id`, `author_id`) values (3, 6);
+
