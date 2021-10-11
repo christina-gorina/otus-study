@@ -12,4 +12,43 @@ spring:
 
 logging:
   level:
-    ROOT: ERROR
+    ROOT: INFO
+  file:
+    name: application.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
