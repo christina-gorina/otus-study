@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit book</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+
+        .addAuthor {
+            margin: 5px;
+            cursor: pointer;
+            color: blue;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+
+<form id="edit-form" th:action="@{/edit(id=${book.id})}" th:method="post" action="editbook.html">
+    <a href="/">Home</a>
+    <h1>Book Info:</h1>
+
+    <div class="row">
+        <label for="holder-input">Name:</label>
+        <input id="holder-input" name="name" type="text" th:value="${book.name}" value="Good book"/>
+    </div>
+
+    <div class="row">
+        <label for="genre-input">Genre:</label>
+        <select name="genre">
+            <option th:each="genre : ${genres}"
+                    th:value="${genre.name}"
+                    th:text="${genre.name}"
+                    th:selected="${genre.name} == ${book.genre}">
+            </option>
+        </select>
+    </div>
+    <div class="row">
+        <label>Authors:</label>
+        <ul id="authorList" th:if="${book.authorNames}">
+            <li th:each="name : ${book.authorNames}">
+                <input name="authorNames" type="text" th:value="${name}" value="Name of author"/>
+            </li>
+        </ul>
+        <ul id="authorList" th:unless="${book.authorNames}">
+            <li>
+                <input name="authorNames" type="text" value=""/>
+            </li>
+        </ul>
+        <span class="addAuthor" onclick="addAuthor();">Add author</span>
+
+    </div>
+
+    <div class="row">
+        <button type="submit">Save</button>
+    </div>
+</form>
+
+<script>
+    function addAuthor() {
+        let ul = document.getElementById('authorList');
+        let li = document.createElement('li')
+        let input = document.createElement('input')
+        input.setAttribute('type', 'text');
+        input.setAttribute('name', 'authorNames');
+        li.appendChild(input);
+        ul.appendChild(li);
+    }
+</script>
+
+</body>
+</html>
