@@ -1,15 +1,13 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
     initialization-mode: always
-
   jpa:
     generate-ddl: false
     hibernate:
       ddl-auto: none
 
     show-sql: true
-
-logging:
-  level:
-    ROOT: ERROR
