@@ -15,8 +15,12 @@ public class RestBookController {
 
     @GetMapping("/api/books")
     public List<BookTo> listPage() {
-
         return bookService.getAll();
+    }
+
+    @GetMapping("api/books/{id}")
+    public BookTo findById(@PathVariable("id") Long id) {
+        return bookService.getById(id);
     }
 
 }

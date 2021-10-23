@@ -13,3 +13,11 @@ spring:
 logging:
   level:
     ROOT: ERROR
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000

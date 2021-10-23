@@ -7,17 +7,17 @@ import com.christinagorina.homework.domain.Comment;
 import com.christinagorina.homework.domain.Genre;
 import com.christinagorina.homework.to.BookTo;
 import com.christinagorina.homework.util.Util;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class BookServiceImpl implements BookService{
+public class BookServiceImpl extends BookServiceDefault implements BookService{
 
     private final BookDao bookDao;
     private final AuthorServiceImpl authorServiceImpl;
@@ -37,10 +37,11 @@ public class BookServiceImpl implements BookService{
         return Util.createTo(book);
     }
 
+    @HystrixCommand(fallbackMethod="getByIdFailure")
     @Override
     public BookTo getById(long id) {
+        sleepRandomly();
         Optional<Book> bookOptional = bookDao.findById(id);
-
         return bookOptional.map(Util::createTo).orElse(null);
 
     }
@@ -50,8 +51,10 @@ public class BookServiceImpl implements BookService{
         bookDao.deleteById(id);
     }
 
+    @HystrixCommand(fallbackMethod="getAllFailure")
     @Override
     public List<BookTo> getAll() {
+        sleepRandomly();
         List<Book> books = bookDao.findAll();
         return books.stream().map(Util::createTo).collect(Collectors.toList());
     }
@@ -69,5 +72,20 @@ public class BookServiceImpl implements BookService{
 
         Genre genre = genreServiceImpl.getOrCreateByName(genreName);
         return Util.createNewFromTo(savedBookTo, authors, genre);
+    }
+
+    private void sleepRandomly() {
+        Random rand = new Random();
+        int randomNum = rand.nextInt(3) + 1;
+        if(randomNum == 3) {
+            System.out.println("It is a chance for demonstrating Hystrix action");
+            try {
+                System.out.println("Start sleeping...." + System.currentTimeMillis());
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                System.out.println("Hystrix thread interupted...." + System.currentTimeMillis());
+                e.printStackTrace();
+            }
+        }
     }
 }
