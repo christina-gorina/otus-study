@@ -25,26 +25,25 @@ public class StudentTestingServiceImpl implements StudentTestingService {
     private final StudentTestingProperties studentTestingProperties;
     private final MessageSource messageSource;
     private final LocaleMap localeMap;
+    private final Locale locale = Locale.forLanguageTag("ru-RU");
 
     @Override
     public void startTesting() {
+
         List<Question> questions = csvToBean.parse();
-        /////////////////////////////////
         Map<String, String> localeMapWithData = Util.fillInLocaleMap(localeMap);
-
-
         System.out.println(messageSource.getMessage("strings.entername",
-                new String[] {":"}, Locale.forLanguageTag("ru-RU")));
+                new String[] {":"}, locale));
 
         String name = scanner.nextLine();
         AtomicInteger countOfRightAnswers = new AtomicInteger();
 
         System.out.println(messageSource.getMessage("strings.answerquestions",
-                new String[] {":"}, Locale.forLanguageTag("ru-RU")));
+                new String[] {":"}, locale));
 
         questions.forEach(q -> {
             System.out.println(messageSource.getMessage(localeMapWithData.get(createLocaleKay(q.getQuestion())),
-                    new String[] {":"}, Locale.forLanguageTag("ru-RU")));
+                    new String[] {":"}, locale));
             String userAnswer = scanner.nextLine();
             String userAnswerLocale = messageSource.getMessage(localeMapWithData.get(createLocaleKay(userAnswer)),
                     new String[] {""}, Locale.getDefault());
@@ -65,6 +64,7 @@ public class StudentTestingServiceImpl implements StudentTestingService {
         }
     }
 
+    @Override
     public boolean checkAnswer(String userAnswer, String rightAnswer) {
         if (userAnswer.trim().equalsIgnoreCase(rightAnswer)) {
             return true;
@@ -73,6 +73,7 @@ public class StudentTestingServiceImpl implements StudentTestingService {
         }
     }
 
+    @Override
     public String createLocaleKay(String question) {
 
         return question.toLowerCase().replaceAll(" ", "")
