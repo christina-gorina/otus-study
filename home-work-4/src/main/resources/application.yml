@@ -1,0 +1,7 @@
+studenttesting:
+  fileName: "teststudentdata.csv"
+  success: 3
+
+spring:
+  messages:
+    basename: i18n/messages
