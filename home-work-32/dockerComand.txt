@@ -1,0 +1,16 @@
+ ак запустить postgres
+
+docker pull postgres - забрать image
+docker image list - посмотреть список всех images на компе 
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgres - запустить postgres, 
+в режиме демона, что бы можно было дальше юзать консоль, пробросить порт 5432 наружу и 
+обратить унимание у postgres надо об€зательно задавать пароль
+docker ps - посмотреть что запущено, еще есть префикс -a
+
+
+ѕодключитьс€ к postgres:
+
+сервак localhost порт 5432
+пользователь - postgres
+пароль - password
+url - jdbc:postgresql://localhost:5432/postgres
